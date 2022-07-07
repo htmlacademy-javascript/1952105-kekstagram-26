@@ -1,2 +1,3 @@
-import './util.js';
-import './data.js';
+import generatePosts from './data.js';
+
+generatePosts();

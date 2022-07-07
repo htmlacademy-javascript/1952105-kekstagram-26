@@ -3,7 +3,7 @@
  * @param {number} min
  * @param {number} max
  */
- export function getIntegerInRange(min, max) {
+export function getIntegerInRange(min, max) {
   const value = (max - min) * Math.random() + min;
   return Math.round(value);
 }
@@ -13,7 +13,7 @@
  * @template Item
  * @param {Item[]} items
  */
- export function getRandomArrayItem(items) {
+export function getRandomArrayItem(items) {
   const lastIndex = Math.max(0, items.length - 1);
   const index = getIntegerInRange(0, lastIndex);
   return items[index];
