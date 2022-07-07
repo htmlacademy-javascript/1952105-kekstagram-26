@@ -1,27 +1,15 @@
-import {getRandomPositiveInteger, getRandomArrayElement} from './util.js';
+import './post.js';
+import {getIntegerInRange, getRandomArrayItem} from './util.js';
 
-//Диапазон рандома при генерации id пользователя в комментариях
-const COMMENTATORS_SPAN_ID = {
-  'min': 1,
-  'max': 6,
-};
+/**
+ * Диапазон нумерации аватарок
+ */
+const AVATARS_RANGE = [1, 6];
 
-//Диапазон рандома при генерации аватарки в комментариях
-const COMMENTATORS_AVATAR_SAPAN_ID = {
-  'min': 1,
-  'max': 6,
-};
-
-const USERS_SPAN_ID = {
-  'min': 1,
-  'max': 25
-};
-
-//id
-const USERS_ID = getRandomPositiveInteger(USERS_SPAN_ID['min'], USERS_SPAN_ID['max']);
-
-//Имя пользователя
-const USERS_NAME = [
+/**
+ * Вварианты имен
+ */
+const NAMES = [
   'Николай',
   'Андрей',
   'Саша',
@@ -32,11 +20,10 @@ const USERS_NAME = [
   'Димон'
 ];
 
-//url
-const PHOTO_URL = `photos/${getRandomPositiveInteger(1, 25)}.jpg`;
-
-//Описание
-const PHOTO_DESCRIPTION = [
+/**
+ * Варианты описаний
+ */
+const DESCRIPTIONS = [
   'Самый лучший день!',
   'Красивые горы!',
   'Кто со мной?',
@@ -45,42 +32,68 @@ const PHOTO_DESCRIPTION = [
   '*здесь могла быть ваша реклама*',
 ];
 
+/**
+ * Диапазон количества лайков
+ */
+const LIKES_RANGE = [15, 200];
 
-//Лайки
-const PHOTO_LIKE = getRandomPositiveInteger(15, 200);
-
-//Комментарии
-const MESSAGE_PHOTO = [
+/**
+ * Варианты комментарий
+ */
+const COMMENTS = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'В целом всё неплохо. Но не всё.'
 ];
 
-//Количество объектов
-const QUANTITY_OBJECT = 25;  //quantityObject
+/**
+ * Диапазон количества комментариев
+ */
+const COMMENTS_RANGE = [0, 15];
 
-//Функция собирающая комментарий
-function generateComment() {
+/**
+ * Сгенерирует комментарий
+ * @param {number} id
+ * @returns {PostComment}
+ */
+function generateComment(id) {
   return {
-    id: getRandomPositiveInteger(COMMENTATORS_SPAN_ID['min'], COMMENTATORS_SPAN_ID['max']),
-    avatar: `img/avatar-${getRandomPositiveInteger(COMMENTATORS_AVATAR_SAPAN_ID['min'], COMMENTATORS_AVATAR_SAPAN_ID['max'])}.svg`,
-    message: getRandomArrayElement(MESSAGE_PHOTO),
-    name: getRandomArrayElement(USERS_NAME),
+    id,
+    avatar: `img/avatar-${getIntegerInRange(...AVATARS_RANGE)}.svg`,
+    message: getRandomArrayItem(COMMENTS),
+    name: getRandomArrayItem(NAMES),
   };
 }
 
-//Функция собирающая массив поста
-function createPost() {
+/**
+ * Сгенрирует список комментариев
+ * @param {number} length Длина списка
+ */
+function generateComments(length) {
+  return Array.from({length}, (item, index) => generateComment(index + 1));
+}
+
+/**
+ * Сгенерирует публикацию
+ * @param {number} id
+ * @returns {Post}
+ */
+function generatePost(id) {
   return {
-    id: USERS_ID,
-    url: PHOTO_URL,
-    description: getRandomArrayElement(PHOTO_DESCRIPTION),
-    likes: PHOTO_LIKE,
-    comments: generateComment(),
+    id,
+    url: `photos/${id}.jpg`,
+    description: getRandomArrayItem(DESCRIPTIONS),
+    likes: getIntegerInRange(...LIKES_RANGE),
+    comments: generateComments(getIntegerInRange(...COMMENTS_RANGE)),
   };
 }
 
-//Сборка 25 массивов
-const arrayPost = Array.from({length: QUANTITY_OBJECT}, createPost);
+/**
+ * Сгенрирует список публикаций
+ * @param {number} length Длина списка
+ */
+function generatePosts(length = 25) {
+  return Array.from({length}, (item, index) => generatePost(index + 1));
+}
 
-arrayPost();
+export default generatePosts;
 

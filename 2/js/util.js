@@ -1,20 +1,20 @@
-//Функция рандомного числа
-function getRandomPositiveInteger (a, b) {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
+/**
+ * Вернет случайное число в диапазоне `min`, `max`
+ * @param {number} min
+ * @param {number} max
+ */
+export function getIntegerInRange(min, max) {
+  const value = (max - min) * Math.random() + min;
+  return Math.round(value);
 }
 
-//Функция для проверки максимальной длины строки
-function checkStringLength (string, length) {
-  return string.length <= length;
+/**
+ * Вернёт случайный элемент массива.
+ * @template Item
+ * @param {Item[]} items
+ */
+export function getRandomArrayItem(items) {
+  const lastIndex = Math.max(0, items.length - 1);
+  const index = getIntegerInRange(0, lastIndex);
+  return items[index];
 }
-
-//Функция для рандомного элемента в массиве
-function getRandomArrayElement(array) {
-  const elementRandomIndex = getRandomPositiveInteger(0, array.length - 1);
-  return array[elementRandomIndex];
-}
-
-export {getRandomPositiveInteger, checkStringLength, getRandomArrayElement};
