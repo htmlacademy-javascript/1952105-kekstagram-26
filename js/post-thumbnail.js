@@ -1,3 +1,5 @@
+import openPreview from './post-preview.js';
+
 /**
  * Содерджимое шаблона миниатюры публикации
  * @type {DocumentFragment}
@@ -14,6 +16,11 @@ function createThumbnailElement(post) {
   element.querySelector('.picture__img').src = post.url;
   element.querySelector('.picture__likes').textContent = post.likes;
   element.querySelector('.picture__comments').textContent  = post.comments.length;
+
+  element.addEventListener('click', (event) => {
+    event.preventDefault();
+    openPreview(post);
+  });
 
   return element;
 }

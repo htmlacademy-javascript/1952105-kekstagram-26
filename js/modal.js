@@ -25,6 +25,7 @@ function handleCancelButtonClick(event) {
  */
 function openModal(element) {
   element.classList.remove('hidden');
+  element.scroll(0, 0);
   element.querySelector('.cancel').addEventListener('click', handleCancelButtonClick);
 
   document.body.classList.add('modal-open');
