@@ -673,7 +673,6 @@ main {
   width: 450px;
 
   margin: 0 auto;
-  margin-bottom: 20px;
   padding: 5px 10px;
 
   font-family: "Open Sans", "Arial", sans-serif;
@@ -687,7 +686,7 @@ main {
   width: 450px;
   height: 100px;
 
-  margin: 0 auto;
+  margin: 20px auto 0;
   padding: 15px 10px;
 
   font-family: "Open Sans", "Arial", sans-serif;
@@ -697,6 +696,27 @@ main {
   border-radius: 5px;
 }
 
+.text__error {
+  display: inline-block;
+  padding: 5px;
+  background-color: rgba(226, 212, 212, 0.3);
+  border-radius: 10px;
+  margin: 10px 0 0;
+  text-transform: none;
+  position: relative;
+  z-index: 3;
+}
+
+.text__error::before {
+    content: "";
+    position: absolute;
+    border: 10px solid transparent;
+    border-bottom: 10px solid rgba(226, 212, 212, 0.3);
+    right: 50%;
+    transform: translateX(50%);
+    top: -20px;
+    display: block;
+}
 
 /**
  * Кнопка для отправки изображения

@@ -1,4 +1,4 @@
-import openPreview from './post-preview.js';
+import openPreview from './thumbnail-preview.js';
 
 /**
  * Содерджимое шаблона миниатюры публикации

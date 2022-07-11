@@ -6,7 +6,7 @@ import openModal from './modal.js';
 const containerElement = document.querySelector('.big-picture');
 
 /**
- * Откроет публикацию вполноразмерном режиме
+ * Откроет публикацию в полноразмерном режиме
  * @param {Post} post
  */
 function openPreview(post) {
