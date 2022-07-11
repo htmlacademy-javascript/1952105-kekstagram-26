@@ -45,7 +45,7 @@
       pristine.addValidator(
         formElement.hashtags,
         (value) => this.hashtags.every((hashtag) => pattern.test(hashtag)),
-        messege
+        messege, 1, true
       );
       return this;
     },
@@ -60,7 +60,7 @@
       pristine.addValidator(
         formElement.hashtags,
         () => this.hashtags.every((hashtag) => hashtag.length <= maxLength),
-        messege
+        messege, 1, true
       );
 
       return this;
@@ -76,7 +76,7 @@
       pristine.addValidator(
         formElement.hashtags,
         () => this.hashtags.length <= maxLength,
-        messege
+        messege, 1, true
       );
 
       return this;
@@ -92,7 +92,7 @@
         const hashtags = this.hashtags.map((hashtag) => hashtag.toLowerCase());
 
         return hashtags.length === new Set(hashtags).size;
-      }, messege);
+      }, messege, 1, true);
 
       return this;
     },
@@ -107,7 +107,7 @@
       pristine.addValidator(
         formElement.description,
         (value) => value.length <= maxLength,
-        messege
+        messege, 1, true
       );
 
       return this;
