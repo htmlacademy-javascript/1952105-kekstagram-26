@@ -27,5 +27,3 @@ createConstraints(formElement, {
 formElement.filename.addEventListener('change', () => {
   openModal(overlayElement);
 });
-
-openModal(overlayElement);

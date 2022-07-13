@@ -48,7 +48,7 @@ const COMMENTS = [
 /**
  * Диапазон количества комментариев
  */
-const COMMENTS_RANGE = [0, 15];
+const COMMENTS_RANGE = [10, 15];
 
 /**
  * Сгенерирует комментарий
