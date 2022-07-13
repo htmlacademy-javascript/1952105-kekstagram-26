@@ -21,8 +21,8 @@ createConstraints(formElement, {
   .setHashtagsSyntax()
   .setHashtagsMaxItemLength(2)
   .setHashtagsMaxItems(2)
-  .setHashtagsRepititionConstraint()
-  .setDescriptionMaxLength(3)
+  .setHashtagsRepetitionConstraint()
+  .setDescriptionMaxLength(3);
 
 formElement.filename.addEventListener('change', () => {
   openModal(overlayElement);
