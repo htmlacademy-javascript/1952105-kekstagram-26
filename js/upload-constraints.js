@@ -42,12 +42,10 @@ function createConstraints(formElement, options) {
     setHashtagsSyntax() {
       const message = 'Хештег начинается с символа # и состоит из букв/цифр';
       const pattern = /^#[a-zа-яё0-9]+$/i;
+      const isValid = () => this.hashtags.every((hashtag) => pattern.test(hashtag));
 
-      pristine.addValidator(
-        formElement.hashtags,
-        () => this.hashtags.every((hashtag) => pattern.test(hashtag)),
-        message, 1, true
-      );
+      pristine.addValidator(formElement.hashtags, isValid, message, 1, true);
+
       return this;
     },
 
@@ -57,12 +55,9 @@ function createConstraints(formElement, options) {
      */
     setHashtagsMaxItemLength(maxLength) {
       const message = `Максимальная длина хештега ${maxLength} символов`;
+      const isValid = () => this.hashtags.every((hashtag) => hashtag.length <= maxLength);
 
-      pristine.addValidator(
-        formElement.hashtags,
-        () => this.hashtags.every((hashtag) => hashtag.length <= maxLength),
-        message, 1, true
-      );
+      pristine.addValidator(formElement.hashtags, isValid, message, 1, true);
 
       return this;
     },
@@ -73,12 +68,9 @@ function createConstraints(formElement, options) {
      */
     setHashtagsMaxItems(maxLength) {
       const message = `Максимальное количество хештегов ${maxLength}`;
+      const isValid = () => this.hashtags.length <= maxLength;
 
-      pristine.addValidator(
-        formElement.hashtags,
-        () => this.hashtags.length <= maxLength,
-        message, 1, true
-      );
+      pristine.addValidator(formElement.hashtags, isValid, message, 1, true);
 
       return this;
     },
@@ -88,12 +80,13 @@ function createConstraints(formElement, options) {
      */
     setHashtagsRepetitionConstraint() {
       const message = 'Хештеги не должны повторяться';
-
-      pristine.addValidator(formElement.hashtags, () => {
+      const isValid = () => {
         const hashtags = this.hashtags.map((hashtag) => hashtag.toLowerCase());
 
         return hashtags.length === new Set(hashtags).size;
-      }, message, 1, true);
+      };
+
+      pristine.addValidator(formElement.hashtags, isValid, message, 1, true);
 
       return this;
     },
@@ -104,12 +97,9 @@ function createConstraints(formElement, options) {
      */
     setDescriptionMaxLength(maxLength) {
       const message = `Не более ${maxLength} символов`;
+      const isValid = (value) => value.length <= maxLength;
 
-      pristine.addValidator(
-        formElement.description,
-        (value) => value.length <= maxLength,
-        message, 1, true
-      );
+      pristine.addValidator(formElement.description, isValid, message, 1, true);
 
       return this;
     }
