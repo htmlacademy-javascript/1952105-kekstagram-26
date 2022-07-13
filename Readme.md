@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Марина  Генералова](https://up.htmlacademy.ru/javascript/26/user/1952105).
-* Наставник:[Сергей Карпов](https://htmlacademy.ru/profile/id518893).
+* Наставник:[Александр Конотоп](https://htmlacademy.ru/profile/id2123489).
 
 ---
 
