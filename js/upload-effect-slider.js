@@ -31,8 +31,6 @@ const rangeByEffect = {
   [HEAT]: [0, 3, .1]
 };
 
-console.log(rangeByEffect);
-
 /**
  * Вернет настройки диапазона для заданного эффекта
  * @param {string} effect

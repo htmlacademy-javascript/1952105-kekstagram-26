@@ -72,7 +72,7 @@ function handleEffectSliderUpdate([value]) {
  * Применит эффект
  * @param {Event} event
  */
-function handleEffectTabsChange(event) {
+function handleEffectTabsChange() {
   const effect = formElement.effect.value;
   const isHidden = effectSlider.defaultEffect === effect;
 
@@ -86,7 +86,7 @@ function handleEffectTabsChange(event) {
  * Откроет окно редактирования
  * @param {Event} event
  */
-function handleFileNameChange(event) {
+function handleFileNameChange() {
   openModal(modalElement);
 }
 
@@ -110,5 +110,5 @@ constraint
   .setHashtagsRepetitionConstraint()
   .setDescriptionMaxLength(3);
 
-  openModal(modalElement);
+openModal(modalElement);
 
