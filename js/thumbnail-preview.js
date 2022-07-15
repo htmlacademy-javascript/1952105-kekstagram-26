@@ -2,7 +2,7 @@ import openModal from './modal.js';
 import './post.js';
 
 /**
- * Контейнер полноразмерной публикации
+ * Окно просмотра публикации
  * @type {HTMLDivElement}
  */
 const modalElement = document.querySelector('.big-picture');
