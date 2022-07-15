@@ -52,7 +52,7 @@ const constraint = createConstraint(formElement, {
 });
 
 /**
- * Меняет масштаб изображения
+ * Применит масштаб изображения
  * @param {CustomEvent} event
  */
 function handleScaleControlUpdate(event) {

@@ -35,7 +35,7 @@ function handleScaleControlClick(event) {
 }
 
 /**
- * Инициализирует элемент управления масштабирования
+ * Инициализирует элемент управления масштабированием
  * @param {HTMLElement} element
  */
 function initScaleControl(element) {
