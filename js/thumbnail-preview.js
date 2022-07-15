@@ -2,22 +2,22 @@ import openModal from './modal.js';
 import './post.js';
 
 /**
- * Контейнер полноразмерной публикации
+ * Окно просмотра публикации
  * @type {HTMLDivElement}
  */
-const containerElement = document.querySelector('.big-picture');
+const modalElement = document.querySelector('.big-picture');
 
 /**
  * Шаблон комментария публикации
  * @type {HTMLLIElement}
  */
-const commentTemplateElement = containerElement.querySelector('.social__comment');
+const commentTemplateElement = modalElement.querySelector('.social__comment');
 
 /**
  * Кнопка показа новой порции комментариев
  * @type {HTMLButtonElement}
  */
-const moreButtonElement = containerElement.querySelector('.social__comments-loader');
+const moreButtonElement = modalElement.querySelector('.social__comments-loader');
 
 /**
  * Очередь комментариев для показа
@@ -55,18 +55,18 @@ function handleMoreButtonClick(event) {
     method = 'replaceChildren';
 
     // Общее число комментариев
-    containerElement.querySelector('.comments-count')
+    modalElement.querySelector('.comments-count')
       .textContent = enqueuedComments.length;
   }
 
   // Новая порция комментариев
-  containerElement.querySelector('.social__comments')[method](
+  modalElement.querySelector('.social__comments')[method](
     ...enqueuedComments.splice(0, COMMENTS_PER_PAGE).map(createCommentElement)
   );
 
   // Число показанных комментариев
-  containerElement.querySelector('.shown-comments-count')
-    .textContent = containerElement.querySelectorAll('.social__comment').length;
+  modalElement.querySelector('.shown-comments-count')
+    .textContent = modalElement.querySelectorAll('.social__comment').length;
 
   moreButtonElement.classList.toggle('hidden', !enqueuedComments.length);
 
@@ -77,15 +77,15 @@ function handleMoreButtonClick(event) {
  * @param {Post} post
  */
 function openPreview(post) {
-  containerElement.querySelector('.big-picture__img img').src = post.url;
-  containerElement.querySelector('.likes-count').textContent = post.likes;
-  containerElement.querySelector('.social__caption').textContent = post.description;
+  modalElement.querySelector('.big-picture__img img').src = post.url;
+  modalElement.querySelector('.likes-count').textContent = post.likes;
+  modalElement.querySelector('.social__caption').textContent = post.description;
 
   enqueuedComments = post.comments.slice();
   moreButtonElement.addEventListener('click', handleMoreButtonClick);
   moreButtonElement.click();
 
-  openModal(containerElement);
+  openModal(modalElement);
 }
 
 export default openPreview;
