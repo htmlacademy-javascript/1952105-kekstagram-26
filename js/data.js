@@ -1,5 +1,5 @@
 import './post.js';
-import {getIntegerInRange, getRandomArrayItem} from './util.js';
+import {getIntegerInRange, getRandomArrayItem} from './utilities.js';
 
 /**
  * Диапазон нумерации аватарок

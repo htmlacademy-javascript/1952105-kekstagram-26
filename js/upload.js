@@ -1,6 +1,6 @@
 import initScaleControl from './upload-scale-control.js';
 import renderEffectSlider from './upload-effect-slider.js';
-import createConstraint from './upload-constraints.js';
+import createConstrainer from './upload-constrainer.js';
 import openModal from './modal.js';
 
 /**
@@ -45,7 +45,7 @@ const effectTabsElement = modalElement.querySelector('.img-upload__effects');
 /**
  * Методы установки ограничений для хештегов и описаний
  */
-const constraint = createConstraint(formElement, {
+const constrainer = createConstrainer(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'text__error'
@@ -103,7 +103,7 @@ effectSlider.on('update', handleEffectSliderUpdate);
 effectTabsElement.addEventListener('change', handleEffectTabsChange);
 
 // Ограничения хештегов и описания
-constraint
+constrainer
   .setHashtagsSyntax()
   .setHashtagsMaxItemLength(2)
   .setHashtagsMaxItems(2)
