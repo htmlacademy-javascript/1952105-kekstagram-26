@@ -5,20 +5,20 @@ import '../pristine/pristine.min.js';
  * @param {HTMLFormElement} formElement
  * @param {Object} options
  */
-function createConstraints(formElement, options) {
-  /**
-   * Подключение библиотеки `Pristine`
-   */
+function createConstrainer(formElement, options) {
   const pristine = new Pristine(formElement, options);
 
   formElement.addEventListener('submit', (event) => {
     event.preventDefault();
 
     if (!pristine.validate()) {
-      const [inValid] = pristine.getErrors();
-      inValid.input.focus();
-    }
+      const [invalid] = pristine.getErrors();
+      invalid.input.focus();
 
+    } else {
+      // Триггер события 'formdata'
+      new FormData(formElement);
+    }
   });
 
   return {
@@ -37,7 +37,6 @@ function createConstraints(formElement, options) {
 
     /**
      * Установит синтаксис для хештегов
-     *
      */
     setHashtagsSyntax() {
       const message = 'Хештег начинается с символа # и состоит из букв/цифр';
@@ -106,4 +105,4 @@ function createConstraints(formElement, options) {
   };
 }
 
-export default createConstraints;
+export default createConstrainer;
