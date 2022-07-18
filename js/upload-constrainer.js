@@ -14,8 +14,11 @@ function createConstrainer(formElement, options) {
     if (!pristine.validate()) {
       const [invalid] = pristine.getErrors();
       invalid.input.focus();
-    }
 
+    } else {
+      // Триггер события 'formdata'
+      new FormData(formElement);
+    }
   });
 
   return {

@@ -1,6 +1,9 @@
 import './upload.js';
-import generatePosts from './data.js';
-import createThumbnailsFragment from './thumbnail.js';
+import {getPosts} from './api.js';
+import initGallery from './gallery.js';
+import showMessage from './message.js';
 
-const posts = generatePosts().sort(() => Math.random() - .5);
-document.querySelector('.pictures').append(createThumbnailsFragment(posts));
+getPosts().then(initGallery).catch((exception) => {
+  showMessage('error', `Ошибка: ${exception.status || exception.message}`);
+});
+

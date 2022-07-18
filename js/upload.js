@@ -2,6 +2,8 @@ import initScaleControl from './upload-scale-control.js';
 import renderEffectSlider from './upload-effect-slider.js';
 import createConstrainer from './upload-constrainer.js';
 import openModal from './modal.js';
+import {uploadPost} from './api.js';
+import showMessage from './message.js';
 
 /**
  * Форма загрузки изображения
@@ -90,16 +92,36 @@ function handleFileNameChange() {
   openModal(modalElement);
 }
 
-// Открытие окна редактирования
+/**
+ * Отправит данные публикации на сервер
+ * @param {FormDataEvent} event
+ */
+async function handleFormData(event) {
+  formElement['upload-submit'].disabled = true;
+
+  try {
+    await uploadPost(event.formData);
+
+    formElement['upload-cancel'].click();
+    showMessage('success');
+
+  } catch (exception) {
+    showMessage('error');
+  }
+
+  formElement['upload-submit'].disabled = false;
+}
+
+// Реакция на открытие окна редактирования
 formElement.filename.addEventListener('change', handleFileNameChange);
 
-// Масштабирование изображения
+// Реакция на масштабирование изображения
 scaleControlElement.addEventListener('update', handleScaleControlUpdate);
 
-// Насыщенность эффекта
+// Реакция на изменение насыщенности эффекта
 effectSlider.on('update', handleEffectSliderUpdate);
 
-// Выбор эффекта
+// Реакция на выбор эффекта
 effectTabsElement.addEventListener('change', handleEffectTabsChange);
 
 // Ограничения хештегов и описания
@@ -110,5 +132,6 @@ constrainer
   .setHashtagsRepetitionConstraint()
   .setDescriptionMaxLength(3);
 
-openModal(modalElement);
+// Реакция на отправку формы
+formElement.addEventListener('formdata', handleFormData);
 
