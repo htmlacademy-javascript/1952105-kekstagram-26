@@ -48,7 +48,7 @@ function initGallery(posts) {
   }
 
   // Реакция на переключение фильтров
-  formElement.addEventListener('change', debounce(handleFormChange));
+formElement.addEventListener('change', debounce(handleFormChange));
 
   // Триггер фильтра "По умолчанию"
   formElement['filter-default'].click();
