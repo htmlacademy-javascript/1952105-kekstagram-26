@@ -4,6 +4,7 @@
  */
 function handleKeyDown(event) {
   if (event.key === 'Escape') {
+    event.stopPropagation();
     document.querySelector('.message').click();
   }
 }
@@ -14,7 +15,7 @@ function handleKeyDown(event) {
  */
 function handleMessageClick(event) {
   event.currentTarget.remove();
-  document.removeEventListener('keydown', handleKeyDown);
+  document.removeEventListener('keydown', handleKeyDown, true);
 }
 
 /**
@@ -32,10 +33,9 @@ function showMessage(type, message = '') {
   }
 
   element.addEventListener('click', handleMessageClick);
-  document.addEventListener('keydown', handleKeyDown);
+  document.addEventListener('keydown', handleKeyDown, true);
 
   document.body.append(element);
 }
-
 
 export default showMessage;

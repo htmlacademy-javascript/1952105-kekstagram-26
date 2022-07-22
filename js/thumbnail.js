@@ -1,7 +1,7 @@
 import openPreview from './thumbnail-preview.js';
 
 /**
- * Содерджимое шаблона миниатюры публикации
+ * Содержимое шаблона миниатюры публикации
  * @type {DocumentFragment}
  */
 const thumbnailTemplateContent = document.querySelector('#picture').content;

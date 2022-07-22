@@ -18,16 +18,17 @@ const STEP = 25;
  * @param {MouseEvent} event
  */
 function handleScaleControlClick(event) {
-  const outputElement = event.currentTarget.querySelector('.scale__control--value');
-  let value = Number.parseFloat(outputElement.value);
+  const group = event.currentTarget.elements;
+  let value = Number.parseFloat(group.scale.value);
 
-  if (event.target.closest('.scale__control--smaller')) {
+  if (event.target === group['scale-down']) {
     value = Math.max(value - STEP, MIN);
 
-  } else if (event.target.closest('.scale__control--bigger')) {
+  } else if (event.target === group['scale-up']) {
     value = Math.min(value + STEP, MAX);
   }
-  outputElement.value = `${value}%`;
+
+  group.scale.value = `${value}%`;
 
   event.currentTarget.dispatchEvent(
     new CustomEvent('update', {detail: {percent: value}})
@@ -36,7 +37,7 @@ function handleScaleControlClick(event) {
 
 /**
  * Инициализирует элемент управления масштабированием
- * @param {HTMLElement} element
+ * @param {HTMLFieldSetElement} element
  */
 function initScaleControl(element) {
   element.addEventListener('click', handleScaleControlClick);

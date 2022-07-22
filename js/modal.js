@@ -6,16 +6,14 @@ function handleKeydown(event) {
   if (event.key !== 'Escape') {
     return;
   }
-
   if ((event.target.type || '').startsWith('text')) {
     return;
   }
-
   document.querySelector('.overlay:not(.hidden) .cancel').click();
 }
 
 /**
- * Закроет модальное окно при клике по кнопке закрытия
+ * Закроет модальное окно при нажатии кнопки закрытия
  * @param {MouseEvent} event
  */
 function handleCancelButtonClick(event) {

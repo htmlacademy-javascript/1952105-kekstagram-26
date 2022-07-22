@@ -21,6 +21,10 @@ function createConstrainer(formElement, options) {
     }
   });
 
+  formElement.addEventListener('reset', () => {
+    pristine.reset();
+  });
+
   return {
     /**
      * Вернет список хештегов
@@ -62,7 +66,7 @@ function createConstrainer(formElement, options) {
     },
 
     /**
-     * Установит ограничение количество хештегов
+     * Установит ограничение количества хештегов
      * @param {number} maxLength
      */
     setHashtagsMaxItems(maxLength) {

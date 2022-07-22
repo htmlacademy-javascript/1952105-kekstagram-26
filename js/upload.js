@@ -119,6 +119,17 @@ async function handleFormData(event) {
   formElement['upload-submit'].disabled = false;
 }
 
+/**
+ * Восстановит масштаб и уберет эффекты
+ * @param {Event} event
+ */
+function handleFormReset() {
+  requestAnimationFrame(() => {
+    scaleControlElement.click();
+    effectTabsElement.dispatchEvent(new Event('change'));
+  });
+}
+
 // Реакция на выбор файла
 formElement.filename.addEventListener('change', handleFileNameChange);
 
@@ -142,4 +153,5 @@ constrainer
 // Реакция на отправку валидной формы
 formElement.addEventListener('formdata', handleFormData);
 
-//  * @type {HTMLFieldSetElement}
+// Реакция на сброс формы
+formElement.addEventListener('reset', handleFormReset);

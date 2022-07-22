@@ -8,10 +8,28 @@ import './post.js';
 const modalElement = document.querySelector('.big-picture');
 
 /**
+ * Контейнер комментариев
+ * @type {HTMLUListElement}
+ */
+const commentsListElement = modalElement.querySelector('.social__comments');
+
+/**
  * Шаблон комментария публикации
  * @type {HTMLLIElement}
  */
 const commentTemplateElement = modalElement.querySelector('.social__comment');
+
+/**
+ * Счетчик показанных комментариев
+ * @type {HTMLSpanElement}
+ */
+const shownCommentsCountElement =  modalElement.querySelector('.shown-comments-count');
+
+/**
+ * Счетчик показанных комментариев
+ * @type {HTMLSpanElement}
+ */
+const commentsCountElement = modalElement.querySelector('.comments-count');
 
 /**
  * Кнопка показа новой порции комментариев
@@ -24,6 +42,11 @@ const moreButtonElement = modalElement.querySelector('.social__comments-loader')
  * @type {PostComment[]}
  */
 let enqueuedComments = [];
+
+/**
+ * Общее число комментариев для показа
+ */
+let enqueuedTotal = 0;
 
 /**
  * Число комментариев для показа за раз
@@ -49,27 +72,20 @@ function createCommentElement(comment) {
  * @param {MouseEvent} event
  */
 function handleMoreButtonClick(event) {
-  let method = 'append';
-
-  if (!event.isTrusted) {
-    method = 'replaceChildren';
-
-    // Общее число комментариев
-    modalElement.querySelector('.comments-count')
-      .textContent = enqueuedComments.length;
-  }
-
   // Новая порция комментариев
-  modalElement.querySelector('.social__comments')[method](
-    ...enqueuedComments.splice(0, COMMENTS_PER_PAGE).map(createCommentElement)
-  );
+  const commentElements = enqueuedComments.splice(0, COMMENTS_PER_PAGE).map(createCommentElement);
+
+  // Добавление/замена комментария
+  commentsListElement[event.isTrusted ? 'append' : 'replaceChildren'](...commentElements);
 
   // Число показанных комментариев
-  modalElement.querySelector('.shown-comments-count')
-    .textContent = modalElement.querySelectorAll('.social__comment').length;
+  shownCommentsCountElement.textContent = enqueuedTotal - enqueuedComments.length;
 
+  // Общее число комментариев
+  commentsCountElement.textContent = enqueuedTotal;
+
+  // Скрытие/показ кнопки
   moreButtonElement.classList.toggle('hidden', !enqueuedComments.length);
-
 }
 
 /**
@@ -81,7 +97,9 @@ function openPreview(post) {
   modalElement.querySelector('.likes-count').textContent = post.likes;
   modalElement.querySelector('.social__caption').textContent = post.description;
 
-  enqueuedComments = post.comments.slice();
+  enqueuedComments = [...post.comments];
+  enqueuedTotal = enqueuedComments.length;
+
   moreButtonElement.addEventListener('click', handleMoreButtonClick);
   moreButtonElement.click();
 
