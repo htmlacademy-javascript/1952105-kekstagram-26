@@ -28,7 +28,7 @@ const rangeByEffect = {
   [SEPIA]: [0, 1, .1],
   [MARVIN]: [0, 100, 1],
   [PHOBOS]: [0, 3, .1],
-  [HEAT]: [0, 3, .1]
+  [HEAT]: [1, 3, .1]
 };
 
 /**

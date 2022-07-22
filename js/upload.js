@@ -6,7 +6,7 @@ import {uploadPost} from './api.js';
 import showMessage from './message.js';
 
 /**
- * Форма загрузки изображения
+ * Форма публикации
  * @type {HTMLFormElement}
  */
 const formElement = document.querySelector('.img-upload__form');
@@ -25,7 +25,6 @@ const imageElement = modalElement.querySelector('.img-upload__preview img');
 
 /**
  * Управление масштабом
- * @type {HTMLFieldSetElement}
  */
 const scaleControlElement = initScaleControl(
   modalElement.querySelector('.img-upload__scale')
@@ -45,7 +44,7 @@ const effectSlider = renderEffectSlider(
 const effectTabsElement = modalElement.querySelector('.img-upload__effects');
 
 /**
- * Методы установки ограничений для хештегов и описаний
+ * Методы установки ограничений для хештегов и описания
  */
 const constrainer = createConstrainer(formElement, {
   classTo: 'img-upload__field-wrapper',
@@ -88,7 +87,15 @@ function handleEffectTabsChange() {
  * Откроет окно редактирования
  * @param {Event} event
  */
-function handleFileNameChange() {
+function handleFileNameChange(event) {
+  const fileUrl = URL.createObjectURL(...event.target.files);
+
+  imageElement.src = fileUrl;
+
+  formElement.querySelectorAll('.effects__preview').forEach((element) => {
+    element.style.backgroundImage = `url(${fileUrl})`;
+  });
+
   openModal(modalElement);
 }
 
@@ -112,10 +119,21 @@ async function handleFormData(event) {
   formElement['upload-submit'].disabled = false;
 }
 
-// Реакция на открытие окна редактирования
+/**
+ * Восстановит масштаб и уберет эффекты
+ * @param {Event} event
+ */
+function handleFormReset() {
+  requestAnimationFrame(() => {
+    scaleControlElement.click();
+    effectTabsElement.dispatchEvent(new Event('change'));
+  });
+}
+
+// Реакция на выбор файла
 formElement.filename.addEventListener('change', handleFileNameChange);
 
-// Реакция на масштабирование изображения
+// Реакция на изменение масштаба
 scaleControlElement.addEventListener('update', handleScaleControlUpdate);
 
 // Реакция на изменение насыщенности эффекта
@@ -127,11 +145,13 @@ effectTabsElement.addEventListener('change', handleEffectTabsChange);
 // Ограничения хештегов и описания
 constrainer
   .setHashtagsSyntax()
-  .setHashtagsMaxItemLength(2)
-  .setHashtagsMaxItems(2)
   .setHashtagsRepetitionConstraint()
-  .setDescriptionMaxLength(3);
+  .setHashtagsMaxItemLength(20)
+  .setHashtagsMaxItems(5)
+  .setDescriptionMaxLength(140);
 
-// Реакция на отправку формы
+// Реакция на отправку валидной формы
 formElement.addEventListener('formdata', handleFormData);
 
+// Реакция на сброс формы
+formElement.addEventListener('reset', handleFormReset);

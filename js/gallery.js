@@ -31,15 +31,14 @@ function initGallery(posts) {
    * @param {CustomEvent} event
    */
   function handleFormChange(event) {
-    const {id} = event.target;
-
     const copiedPosts = [...posts];
+
     // Случайные
-    if (id === 'filter-random') {
+    if (event.target === formElement['filter-random']) {
       copiedPosts.sort(() => Math.random() - .5).splice(RANDOM_POSTS_LIMIT);
 
     // Популярные
-    } else if (id === 'filter-discussed') {
+    } else if (event.target === formElement['filter-discussed']) {
       copiedPosts.sort((left, right) => right.comments.length - left.comments.length);
     }
 
