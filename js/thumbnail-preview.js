@@ -26,7 +26,7 @@ const commentTemplateElement = modalElement.querySelector('.social__comment');
 const shownCommentsCountElement =  modalElement.querySelector('.shown-comments-count');
 
 /**
- * Счетчик показанных комментариев
+ * Счетчик общего числа комментариев
  * @type {HTMLSpanElement}
  */
 const commentsCountElement = modalElement.querySelector('.comments-count');
@@ -75,7 +75,7 @@ function handleMoreButtonClick(event) {
   // Новая порция комментариев
   const commentElements = enqueuedComments.splice(0, COMMENTS_PER_PAGE).map(createCommentElement);
 
-  // Добавление/замена комментария
+  // Добавление/замена комментариев
   commentsListElement[event.isTrusted ? 'append' : 'replaceChildren'](...commentElements);
 
   // Число показанных комментариев
