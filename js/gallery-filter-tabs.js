@@ -6,7 +6,7 @@ const TAB = 'img-filters__button';
 /**
  * CSS-класс активной вкладки
  */
- const ACTIVE_TAB = 'img-filters__button--active';
+const ACTIVE_TAB = 'img-filters__button--active';
 
 /**
  * Активирует вкладку при нажатии
